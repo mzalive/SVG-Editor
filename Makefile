@@ -1,4 +1,4 @@
-NAME=method-draw
+NAME=svg-editor
 VERSION=2.6
 PACKAGE=$(NAME)
 MAKEDOCS=naturaldocs/NaturalDocs
@@ -25,7 +25,7 @@ JS_FILES=\
 	src/draw.js \
 	src/path.js \
 	src/svgcanvas.js \
-	src/method-draw.js \
+	src/svg-editor.js \
 	lib/jquery-draginput.js \
 	lib/contextmenu.js \
 	lib/jquery-ui/jquery-ui-1.8.17.custom.min.js \
@@ -41,15 +41,15 @@ JS_FILES=\
 CSS_FILES=\
 	lib/jgraduate/css/jPicker.css \
 	lib/jgraduate/css/jgraduate.css \
-	css/method-draw.css \
+	css/svg-editor.css \
 
 JS_INPUT_FILES=$(addprefix editor/, $(JS_FILES))
 CSS_INPUT_FILES=$(addprefix editor/, $(CSS_FILES))
 JS_BUILD_FILES=$(addprefix $(PACKAGE)/, $(JS_FILES))
 CSS_BUILD_FILES=$(addprefix $(PACKAGE)/, $(CSS_FILES))
 CLOSURE_JS_ARGS=$(addprefix --js , $(JS_INPUT_FILES))
-COMPILED_JS=editor/method-draw.compiled.js
-COMPILED_CSS=editor/css/method-draw.compiled.css
+COMPILED_JS=editor/svg-editor.compiled.js
+COMPILED_CSS=editor/css/svg-editor.compiled.css
 
 all: release
 

@@ -163,7 +163,7 @@ var clearSvgContentElement = canvas.clearSvgContentElement = function() {
   }).appendTo(svgroot);
 
   // TODO: make this string optional and set by the client
-  var comment = svgdoc.createComment(" Created with Method Draw - http://github.com/duopixel/Method-Draw/ ");
+  var comment = svgdoc.createComment(" Created with SVG Editor - http://github.com/mzalive/SVG Editor/ ");
   svgcontent.appendChild(comment);
 };
 clearSvgContentElement();
@@ -5572,7 +5572,7 @@ this.save = function(opts) {
   if (svgedit.browser.supportsBlobs()) {
     var blob = new Blob([ str ], {type: "image/svg+xml;charset=utf-8"});
     var dropAutoBOM = true;
-    saveAs(blob, "method-draw-image.svg", dropAutoBOM);
+    saveAs(blob, "svg-editor-image.svg", dropAutoBOM);
   }
   else {
     call("saved", str);
