@@ -5,52 +5,51 @@
 </head>
 <body>
 
-    <script type="text/javascript" src="embedapi.js"></script>
-    <script type="text/javascript">
-        var svgCanvas = null;
+<script type="text/javascript" src="src/embedapi.js"></script>
+<script type="text/javascript">
+    var SAMPLE_SVG_STRING = '<svg width="580" height="400" xmlns="http://www.w3.org/2000/svg">\n' +
+        ' <!-- Created with SVG Editor - http://github.com/mzalive/SVG Editor/ -->\n' +
+        ' <g>\n' +
+        '  <title>background</title>\n' +
+        '  <rect fill="#fff" id="canvas_background" height="402" width="582" y="-1" x="-1"/>\n' +
+        '  <g display="none" overflow="visible" y="0" x="0" height="100%" width="100%" id="canvasGrid">\n' +
+        '   <rect fill="url(#gridpattern)" stroke-width="0" y="0" x="0" height="100%" width="100%"/>\n' +
+        '  </g>\n' +
+        ' </g>\n' +
+        ' <g>\n' +
+        '  <title>Layer 1</title>\n' +
+        '  <path id="svg_1" d="m186.5825,162.04691l79.06753,0l24.43247,-73.71964l24.43249,73.71964l79.06751,0l-63.96685,45.56072l24.43374,73.71964l-63.96688,-45.56197l-63.96687,45.56197l24.43374,-73.71964l-63.96688,-45.56072z" stroke-width="1.5" stroke="#000" fill="#ff0000"/>\n' +
+        ' </g>\n' +
+        '</svg>'
 
-        function init_embed() {
-            var frame = document.getElementById('svgedit');
-      svgCanvas = new embedded_svg_edit(frame);
-      
-      // Hide main button, as we will be controlling new/load/save etc from the host document
-      var doc;
-      doc = frame.contentDocument;
-      if (!doc)
-      {
-        doc = frame.contentWindow.document;
-      }
-      
-      var mainButton = doc.getElementById('main_button');
-      mainButton.style.display = 'none';            
-        }
-        
-        function handleSvgData(data, error) {
-      if (error)
-      {
-        alert('error ' + error);
-      }
-            else
-      {
-        alert('Congratulations. Your SVG string is back in the host page, do with it what you will\n\n' + data);
-      }     
-        }
-        
-        function loadSvg() {
-            var svgexample = '<svg width="640" height="480" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg"><g><title>Layer 1</title><rect stroke-width="5" stroke="#000000" fill="#FF0000" id="svg_1" height="35" width="51" y="35" x="32"/><ellipse ry="15" rx="24" stroke-width="5" stroke="#000000" fill="#0000ff" id="svg_2" cy="60" cx="66"/></g></svg>';
-            svgCanvas.setSvgString(svgexample);
-        }
-    
-    function saveSvg() {      
-      svgCanvas.getSvgString()(handleSvgData);
+    var svgCanvas = null;
+
+    function init_embed() {
+          svgCanvas = new SvgEditorEmbedded(window.frames['svgEditor']);
     }
-    </script>
 
 
-    <button onclick="loadSvg();">Load example</button>
-    <button onclick="saveSvg();">Save data</button>
-    <br/>
 
-    <iframe src="index.html" width="900px" height="600px" id="svgedit" onload="init_embed()"></iframe>    
+    function loadSvg() {
+        svgCanvas.setSvgString(SAMPLE_SVG_STRING)(function (d, e) {
+            alert(d, e)
+        });
+    }
+
+    function saveSvg() {
+        svgCanvas.getSvgString()(function handleSvgData(d, e) {
+            if (e)
+                alert('error ' + e);
+            else
+                alert('The exported SVG string:\n\n' + d);
+        });
+    }
+</script>
+
+<iframe src="index.html" width="900px" height="600px" id="svgEditor" onload="init_embed()"></iframe>
+<br/>
+<button onclick="loadSvg();">Load example</button>
+<button onclick="saveSvg();">Save data</button>
+<br/>
 </body>
 </html>
